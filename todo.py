@@ -14,3 +14,12 @@ def help():
     """
     sys.stdout.buffer.write(sa.encode('utf8'))
 
+
+# Function to add items
+def add_items(s):
+    file = open('todo.txt', 'a')
+    file.write(s)
+    file.write('\n')
+    file.close()
+    s = '"'+s+'"'
+    print(f'Added todo: {s}')
