@@ -8,7 +8,7 @@ def help():
         $ ./todo add_items "todo item" # Add a new todo
         $ ./todo list_items               # Show remaining todos
         $ ./todo del NUMBER       # Delete a todo
-        $ ./todo done NUMBER      # Complete a todo
+        $ ./todo complete_task NUMBER      # Complete a todo
         $ ./todo help             # Show usage
         $ ./todo report           # Statistics
     """
@@ -37,3 +37,27 @@ def list_items():
             l = l - 1
     except Exception as e:
         raise e
+
+# function to complete a todo   
+def complete_task(num):
+    try:
+        nec()
+        num = int(num)
+        file = open('done.txt', 'a')
+        st = 'x '+str(datetime.datetime.today()).split()[0]+' '+d[num]
+
+        file.write(st)
+        file.write("\n")
+        file.close()
+        print(f'Marked todo #{num} as done.')
+
+        with open("todo.txt", "r+") as file:
+            lines = file.readlines()
+            file.seek(0)
+
+            for i in lines:
+                if i.strip('\n') != d[num]:
+                    file.write(i)
+                file.truncate()
+    except:
+        print(f'Error: todo #{num} does not exist.')
