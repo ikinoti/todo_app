@@ -61,3 +61,20 @@ def complete_task(num):
                 file.truncate()
     except:
         print(f'Error: todo #{num} does not exist.')
+
+# Function to show report/statistics of todo list
+def report():
+    nec()
+    try:
+        completed_task = open('done.txt', 'r')
+        counter = 1
+
+        for line in completed_task:
+            line = line.strip('\n')
+            don.update({counter: line})
+            counter = counter + 1
+
+            print(f'{str(datetime.datetime.today()).split()[0]} Pending : {len(d)} Completed : {len(don)}')
+            
+    except:
+        print(f'{str(datetime.datetime.today()).split()[0]} Pending : {len(d)} Completed : {len(don)}')
