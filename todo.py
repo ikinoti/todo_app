@@ -98,3 +98,18 @@ def del_item(num):
 
     except Exception as e:
         print(f'Error: todo #{num} does not exist. Nothing deleted.')
+
+# utility function
+def nec():
+
+    # utility function used in complete_task and report function
+    try:
+        file = open('todo.txt', 'r')
+        counter = 1
+        for line in file:
+            line = line.strip('\n')
+            d.update({counter: line})
+            counter += 1
+    except:
+        sys.stdout.buffer.write("There are no pending todos!".encode('utf8'))
+
