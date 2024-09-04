@@ -78,3 +78,23 @@ def report():
             
     except:
         print(f'{str(datetime.datetime.today()).split()[0]} Pending : {len(d)} Completed : {len(don)}')
+
+# function to delete an item from todo list
+def del_item(num):
+    try:
+        num = int(num)
+        nec()
+
+        # utility function defined in main
+        with open("todo.txt", "r+") as file:
+            lines = file.readlines()
+            file.seek(0)
+
+            for i in lines:
+                if i.strip('\n') != d[num]:
+                    file.write(i)
+            file.truncate()
+        print(f"Deleted todo #{num}")
+
+    except Exception as e:
+        print(f'Error: todo #{num} does not exist. Nothing deleted.')
