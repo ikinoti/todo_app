@@ -1,4 +1,4 @@
-import os
+# import os
 import sys
 import datetime
 
@@ -7,7 +7,7 @@ def help():
     sa = """
         $ ./todo add_items "todo item" # Add a new todo
         $ ./todo list_items               # Show remaining todos
-        $ ./todo del NUMBER       # Delete a todo
+        $ ./todo del_item NUMBER       # Delete a todo
         $ ./todo complete_task NUMBER      # Complete a todo
         $ ./todo help             # Show usage
         $ ./todo report           # Statistics
@@ -15,26 +15,26 @@ def help():
     sys.stdout.buffer.write(sa.encode('utf8'))
 
 
-# Function to add items
-def add_items(s):
+# Function to add todo items
+def add_items(todo_item):
     file = open('todo.txt', 'a')
-    file.write(s)
+    file.write(todo_item)
     file.write('\n')
     file.close()
-    s = '"'+s+'"'
-    print(f'Added todo: {s}')
+    todo_item = '"'+todo_item+'"'
+    print(f'Added todo: {todo_item}')
 
 # Function to print items in the todo list
 def list_items():
     try:
         nec()
-        l = len(d)
-        k = l
+        list_len = len(d)
+        k = list_len
 
         for i in d:
-            sys.stdout.buffer.write(f'[{l}] {d[l]}'.encode('utf8'))
+            sys.stdout.buffer.write(f'[{list_len}] {d[list_len]}'.encode('utf8'))
             sys.stdout.buffer.write("\n".encode('utf8'))
-            l = l - 1
+            list_len = list_len - 1
     except Exception as e:
         raise e
 
@@ -113,3 +113,34 @@ def nec():
     except:
         sys.stdout.buffer.write("There are no pending todos!".encode('utf8'))
 
+
+# main
+if __name__ == '__main__':
+    try:
+        d = {}
+        don = {}
+        args = sys.argv
+
+        if(args[1] == 'del_item'):
+            args[1] = 'del_item'
+
+        if(args[1] == 'add_items' and len(args[2:]) == 0):
+            sys.stdout.buffer.write("Error: Missing todo string. Nothing added!".encode('utf8'))
+        elif(args[1] == 'complete_task' and len(args[2:]) == 0):
+            sys.stdout.buffer.write("Error: Missing NUMBER for marking todo as done.".encode('utf8'))
+        elif(args[1] == 'del_item' and len(args[2:]) == 0):
+            sys.stdout.buffer.write("Error: Missing NUMBER for deleting todo.".encode('utf8'))
+        else:
+            globals()[args[1]](*args[2:])
+    except Exception as e:
+        s = """
+            Usage :-
+                $ ./todo add_items "todo item" # Add a new todo
+                $ ./todo list_items            # Show remaining todos
+                $ ./todo del_item NUMBER       # Delete a todo
+                $ ./todo complete_task NUMBER  # Complete a todo
+                $ ./todo help                  # Show usage
+                $ ./todo report                # Statistics 
+
+            """
+        sys.stdout.buffer.write(s.encode('utf8'))
